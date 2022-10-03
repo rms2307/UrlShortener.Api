@@ -5,9 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using UrlShortener.Api.Infra.Cache;
+using UrlShortener.Api.Infra.Cache.Interfaces;
 using UrlShortener.Api.Infra.Data.Context;
 using UrlShortener.Api.Infra.Data.Repositories;
 using UrlShortener.Api.Infra.Data.Repositories.Interfaces;
+using UrlShortener.Api.Models.Url;
 using UrlShortener.Api.Services;
 using UrlShortener.Api.Services.Interfaces;
 
@@ -25,7 +28,7 @@ namespace UrlShortener.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration["ConnectionSqlite:ConnectionString"];
+            var connection = Configuration["ConnectionStrings:ConnectionString"];
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connection)
             );
@@ -33,6 +36,15 @@ namespace UrlShortener.Api
             services.AddScoped<IUrlRepository, UrlRepository>();
 
             services.AddScoped<IUrlService, UrlService>();
+
+            services.AddTransient<ICache<UrlModel>, Cache<UrlModel>>();
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration =
+                    Configuration.GetValue<string>("CacheConfig:ConnectionCache");
+                options.InstanceName = "UrlShortener.Api";
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

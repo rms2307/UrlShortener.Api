@@ -2,9 +2,11 @@
 {
     public class UrlModel
     {
-        public int Id { get; private set; }
-        public string OriginalUrl { get; private set; }
+        public int Id { get; set; }
+        public string OriginalUrl { get; set; }
         public string BaseUrl { get; set; }
+
+        public UrlModel() { }
 
         public UrlModel(int id, string originalUrl, string baseUrl)
         {
