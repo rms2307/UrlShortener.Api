@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using UrlShortener.Api.Extensions;
 using UrlShortener.Api.Infra.Cache;
 using UrlShortener.Api.Infra.Cache.Interfaces;
 using UrlShortener.Api.Infra.Data.Context;
@@ -33,13 +34,9 @@ namespace UrlShortener.Api
                 options.UseSqlite(connection)
             );
 
-            services.AddScoped<IUrlRepository, UrlRepository>();
-            services.AddScoped<IFeatureToggleRepository, FeatureToggleRepository>();
-
-            services.AddScoped<IUrlService, UrlService>();
-            services.AddScoped<IFeatureToggleService, FeatureToggleService>();
-
-            services.AddTransient<ICache<UrlModel>, Cache<UrlModel>>();
+            services.AddRepositories();
+            services.AddServices();
+            services.AddCache();
 
             services.AddDistributedRedisCache(options =>
             {
