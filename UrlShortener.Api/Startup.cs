@@ -34,8 +34,10 @@ namespace UrlShortener.Api
             );
 
             services.AddScoped<IUrlRepository, UrlRepository>();
+            services.AddScoped<IFeatureToggleRepository, FeatureToggleRepository>();
 
             services.AddScoped<IUrlService, UrlService>();
+            services.AddScoped<IFeatureToggleService, FeatureToggleService>();
 
             services.AddTransient<ICache<UrlModel>, Cache<UrlModel>>();
 

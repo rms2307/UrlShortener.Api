@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UrlShortener.Api.Models;
 using UrlShortener.Api.Models.Url;
 
 namespace UrlShortener.Api.Infra.Data.Context
@@ -7,6 +8,7 @@ namespace UrlShortener.Api.Infra.Data.Context
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<UrlModel> UrlModels { get; set; }
+        public DbSet<FeatureToggle> FeatureToggles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
