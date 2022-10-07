@@ -1,6 +1,6 @@
 ﻿using UrlShortener.Api.Extensions;
 
-namespace UrlShortener.Api.Models.Url
+namespace UrlShortener.Api.Controllers.ApiModels
 {
     public class UrlResponseModel
     {

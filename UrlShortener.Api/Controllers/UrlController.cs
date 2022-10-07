@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
-using UrlShortener.Api.Models.Url;
+using UrlShortener.Api.Controllers.ApiModels;
 using UrlShortener.Api.Services.Interfaces;
 
 namespace UrlShortener.Api.Controllers
@@ -26,7 +26,7 @@ namespace UrlShortener.Api.Controllers
         [ProducesResponseType(typeof(UrlResponseModel), StatusCodes.Status200OK )]
         public async Task<ActionResult<UrlResponseModel>> GetOriginalUrl([FromRoute] string suffixShortenedUrl)
         {
-            return Ok(await _urlService.GetOriginalUrl(suffixShortenedUrl));
+            return Ok(await _urlService.GetOriginalUrlAsync(suffixShortenedUrl));
         }
 
         [HttpPost("encode")]
@@ -34,7 +34,7 @@ namespace UrlShortener.Api.Controllers
         [ProducesResponseType(typeof(UrlResponseModel), StatusCodes.Status201Created)]
         public async Task<ActionResult<UrlResponseModel>> CreateShortenedUrl([FromBody] UrlRequestModel request)
         {
-            return Created(string.Empty, await _urlService.CreateShortenedUrl(request));
+            return Created(string.Empty, await _urlService.CreateShortenedUrlAsync(request));
         }
     }
 }

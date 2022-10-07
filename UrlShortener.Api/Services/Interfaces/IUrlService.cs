@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using UrlShortener.Api.Models.Url;
+using UrlShortener.Api.Controllers.ApiModels;
 
 namespace UrlShortener.Api.Services.Interfaces
 {
     public interface IUrlService
     {
-        Task<UrlResponseModel> GetOriginalUrl(string suffixShortenedUrl);
-        Task<UrlResponseModel> CreateShortenedUrl(UrlRequestModel request);
+        Task<UrlResponseModel> GetOriginalUrlAsync(string suffixShortenedUrl);
+        Task<UrlResponseModel> CreateShortenedUrlAsync(UrlRequestModel request);
     }
 }

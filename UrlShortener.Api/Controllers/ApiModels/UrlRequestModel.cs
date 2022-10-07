@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UrlShortener.Api.Models.Url
+namespace UrlShortener.Api.Controllers.ApiModels
 {
     public class UrlRequestModel
     {
